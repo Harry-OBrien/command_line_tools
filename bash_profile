@@ -5,8 +5,13 @@ alias fixWebShit="sudo sh setWebPermissions -r /Library/WebServer/JobHunter/"
 alias mankyWeather="lynx -dump http://www.bbc.co.uk/weather | grep Manchester"
 alias cdp="cd ~/Dropbox\ \(DRIFT\ UK\)/Projects/"
 alias cdr="cd ~/GitRepos"
+alias cdw="cd /Library/WebServer"
 alias psg="ps aux | grep -i -e VSZ -e"
 alias kilburn="ssh -X a64070ho@kilburn.cs.man.ac.uk"
+alias p="python3"
+alias python="python3"
+alias you="echo 'no you'"
+alias fuck="echo 'yeah, fuck'"
 
 #----------------------------
 # Git Aliases
