@@ -1,7 +1,7 @@
 #----------------------------
 # Aliases
 #----------------------------
-alias fixWebShit="sudo sh setWebPermissions -r /Library/WebServer/JobHunter/"
+alias fixWebShit="sudo sh setWebPermissions -r /Library/WebServer/showcase-website/"
 alias mankyWeather="lynx -dump http://www.bbc.co.uk/weather | grep Manchester"
 alias cdp="cd ~/Dropbox\ \(DRIFT\ UK\)/Projects/"
 alias cdr="cd ~/GitRepos"
@@ -10,6 +10,7 @@ alias psg="ps aux | grep -i -e VSZ -e"
 alias kilburn="ssh -X a64070ho@kilburn.cs.man.ac.uk"
 alias p="python3"
 alias python="python3"
+alias pip="pip3"
 alias you="echo 'no you'"
 alias fuck="echo 'yeah, fuck'"
 
@@ -25,6 +26,7 @@ alias gcm="git commit --message"
 # Helper Functions
 #----------------------------
 mcdir () { mkdir -p $1; cd $1; }
+splitVideo () { ffmpeg -i "$1" "${1%.*}%04d.jpg" -hide_banner; }
 
 function extract {
  if [ -z "$1" ]; then
