@@ -32,10 +32,10 @@ void listAll() {
   std::ifstream todoFile(fileName, std::ios::in);
 
   if (is_empty(todoFile))
-    std::cerr << "Todo list is empty!" << std::endl;
+    std::cerr << "\e[1mTodo list is empty!\e[0m" << std::endl;
   else {
     int index = 1;
-    std::cout << "Here's your to-do list..." << std::endl;
+    std::cout << "\e[1mHere's your to-do list...\e[0m" << std::endl;
     while(getline(todoFile, line)) std::cout << "\t" << index++ << ": " << line << std::endl;
     std::cout << std::endl;
   }
@@ -91,7 +91,7 @@ void deleteItemAt(int index) {
   rename(tempFileName, fileName);
 
   if (!itemRemoved) {
-    std::cerr << "No item existed at index " << index << std::endl;
+    std::cerr << "No item existed at index " << index << "." << std::endl;
   }
 }
 
@@ -114,7 +114,7 @@ int main(int argc, char* argv[]) {
   // Clearing list
   else if ((arg == "-c") || (arg == "--clear")) {
       char result;
-      std::cout << "Are you sure you want to clear the list? [Y/N]" << std::endl;
+      std::cout << "\e[1mAre you sure you want to clear the list? [Y/N]\e[0m" << std::endl;
       std::cin >> result;
       if (result == 'Y' || result == 'y') {
           remove(fileName);
