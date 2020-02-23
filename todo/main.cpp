@@ -12,19 +12,18 @@
 char fileName[] = "/Users/HarryOB/Todo/TodoList.txt";
 char tempFileName[] = "/Users/HarryOB/Todo/temp.txt";
 
-static void show_usage(std::string name = "./todo")
-{
-    std::cerr << "Usage: " << name << " <option(s)> TASK"
+static void show_usage(std::string name = "./todo") {
+    std::cerr << "Usage: " << name << " <option(s)> TASK\n"
               << "Options:\n"
-              << "\t-l, --list ITEM\t\tList all todo items\n"
+              << "\t-l, --list ITEM\t\tList all to-do items\n"
               << "\t-a, --add ITEM\t\tAdd item to list\n"
-              << "\t-d,--del INDEX OF ITEM\tDelete the item at the given index\n"
-              << "\t-h,--help \tShow this usage message\n"
+              << "\t-d, --del INDEX OF ITEM\tDelete the item at the given index\n"
+              << "\t-c, --clear \tClear the to-do list\n"
+              << "\t-h, --help \tShow this usage message\n"
               << std::endl;
 }
 
-bool is_empty(std::ifstream& pFile)
-{
+bool is_empty(std::ifstream& pFile){
     return pFile.peek() == std::ifstream::traits_type::eof();
 }
 
@@ -44,10 +43,15 @@ void listAll() {
   todoFile.close();
 }
 
-void add(std::string item) {
+void add(char** item, int argc) {
   std::ofstream todoFile(fileName, std::ios::app | std::ios::out);
 
-  if(todoFile.is_open()) todoFile << item << std::endl;
+  if(todoFile.is_open()) {
+    for (int i = 0; i < argc; i++)
+      todoFile << item[i] << " ";
+
+    todoFile << std::endl;
+  }
 
   todoFile.close();
 }
@@ -93,12 +97,6 @@ void deleteItemAt(int index) {
 
 int main(int argc, char* argv[]) {
 
-  // Validate correct no. of args
-  if (argc > 3) {
-    show_usage(argv[0]);
-    return 1;
-  }
-
   // If no CLIs, just list the todo items
   if (argc == 1) {
     listAll();
@@ -106,37 +104,64 @@ int main(int argc, char* argv[]) {
   }
 
   // Parse CLI
-  for (int i = 1; i < argc; ++i) {
-      std::string arg = argv[i];
-      if ((arg == "-h") || (arg == "--help")) {
-          show_usage(argv[0]);
+  std::string arg = argv[1];
+  // Show usage
+  if ((arg == "-h") || (arg == "--help")) {
+      show_usage(argv[0]);
+      return 0;
+  }
+
+  // Clearing list
+  else if ((arg == "-c") || (arg == "--clear")) {
+      char result;
+      std::cout << "Are you sure you want to clear the list? [Y/N]" << std::endl;
+      std::cin >> result;
+      if (result == 'Y' || result == 'y') {
+          remove(fileName);
           return 0;
       }
-      else if ((arg == "-d") || (arg == "--del")) {
-          if (i + 1 < argc) { // Make sure we aren't at the end of argv!
-              deleteItemAt(atoi(argv[++i])); // Increment 'i' so we don't get the argument as the next argv[i].
-          } else {
-              // No args for -d
-              std::cerr << "--del requires a numerical argument." << std::endl;
-              return 1;
-          }
-      }
-      else if ((arg == "-a") || (arg == "--add")) {
-          if (i + 1 < argc) { // Make sure we aren't at the end of argv!
-               add(argv[++i]); // Increment 'i' so we don't get the argument as the next argv[i].
-          } else {
-              // No args for -a
-              std::cerr << "--add requires one argument." << std::endl;
-              return 1;
-          }
-      }
-      else if ((arg == "-l") || (arg == "--list")) {
-          listAll();
-      }
       else {
-        show_usage(argv[0]);
+          std::cout << "Cancelling!" << std::endl;
+          return 0;
+      }
+
+
+  }
+
+  // Removing task
+  else if ((arg == "-d") || (arg == "--del")) {
+      if (argc > 2) { // Make sure we aren't at the end of argv!
+          deleteItemAt(atoi(argv[2])); // Increment 'i' so we don't get the argument as the next argv[i].
+          return 0;
+      } else {
+          // No args for -d
+          std::cerr << "--del requires a numerical argument." << std::endl;
+          return 1;
       }
   }
+
+  // Adding new task
+  else if ((arg == "-a") || (arg == "--add")) {
+      if (argc > 2) { // Make sure we aren't at the end of argv!
+           add(&argv[2], argc - 2);
+           return 0;
+      } else {
+          // No args for -a
+          std::cerr << "--add requires at least argument." << std::endl;
+          return 1;
+      }
+  }
+
+  // List all items
+  else if ((arg == "-l") || (arg == "--list")) {
+      listAll();
+      return 0;
+  }
+  else {
+    show_usage(argv[0]);
+    return 0;
+  }
+
 
   return 0;
 }
