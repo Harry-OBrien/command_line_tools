@@ -13,7 +13,8 @@ char fileName[] = "/Users/HarryOB/Todo/TodoList.txt";
 char tempFileName[] = "/Users/HarryOB/Todo/temp.txt";
 
 static void show_usage(std::string name = "./todo") {
-    std::cerr << "Usage: " << name << " <option(s)> TASK\n"
+    std::cerr << "Usage: " << name << " [<option(s)>] TASK\n"
+              << "Default: -a ITEM\n"
               << "Options:\n"
               << "\t-l, --list ITEM\t\tList all to-do items\n"
               << "\t-a, --add ITEM\t\tAdd item to list\n"
@@ -124,8 +125,6 @@ int main(int argc, char* argv[]) {
           std::cout << "Cancelling!" << std::endl;
           return 0;
       }
-
-
   }
 
   // Removing task
@@ -140,6 +139,12 @@ int main(int argc, char* argv[]) {
       }
   }
 
+  // List all items
+  else if ((arg == "-l") || (arg == "--list")) {
+      listAll();
+      return 0;
+  }
+
   // Adding new task
   else if ((arg == "-a") || (arg == "--add")) {
       if (argc > 2) { // Make sure we aren't at the end of argv!
@@ -151,14 +156,9 @@ int main(int argc, char* argv[]) {
           return 1;
       }
   }
-
-  // List all items
-  else if ((arg == "-l") || (arg == "--list")) {
-      listAll();
-      return 0;
-  }
   else {
-    show_usage(argv[0]);
+    //By default, we add a task
+    add(&argv[1], argc - 1);
     return 0;
   }
 
