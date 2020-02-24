@@ -110,6 +110,10 @@ void moveItemAtIndex(int srcIndex, int destIndex) {
 		return;
 	}
 
+	if (srcIndex == destIndex) {
+		return;
+	}
+
 	// open file in read mode or 'in' mode
 	std::ifstream iFile(fileName);
 
