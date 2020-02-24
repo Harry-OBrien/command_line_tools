@@ -10,7 +10,6 @@
 #include <fstream>
 
 // TODO: Edit a current todo item (i.e. for spelling)
-// TODO: Re-order todo items in list
 // TODO: Make certain tasks important (Will stand out when list is outputted)
 // TODO: Make certain tasks blocked by others -> Parent child esque
 // TODO: Have 'undo' tool which removes the last action done
