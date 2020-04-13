@@ -13,6 +13,8 @@ alias python="python3"
 alias pip="pip3"
 alias you="echo 'no you'"
 alias fuck="echo 'yeah, fuck'"
+alias make="clear; clear; make"
+alias c="clear"
 
 #----------------------------
 # Git Aliases
@@ -21,10 +23,15 @@ alias ga="git add"
 alias gaa="git add ."
 alias gaaa="git add --all"
 alias gcm="git commit --message"
+alias gp="git push"
+alias gts="git status"
+alias gcb="git checkout -b"
+alias gck="git checkout"
 
 #----------------------------
 # Helper Functions
 #----------------------------
+whatsLeft () { grep -nr "TODO" ./$1 | grep -v git; }
 mcdir () { mkdir -p $1; cd $1; }
 splitVideo () { ffmpeg -i "$1" "${1%.*}%04d.jpg" -hide_banner; }
 
@@ -70,6 +77,7 @@ fi
 
 PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 export CLICOLOR=1
+
 #----------------------------------------------------------
 # Setting PATH 
 # The original version is saved in .bash_profile.pysave
@@ -78,3 +86,11 @@ PATH="/Library/Frameworks/Python.framework/Versions/3.7/bin:${PATH}"
 PATH="$HOME/.composer/vendor/bin:$PATH"
 export PATH
 
+export PATH="/usr/local/opt/openssl@1.1/bin:$PATH"
+
+# Docker
+export PATH="$HOME/.cargo/bin:$PATH"
+
+# Flutter
+export export PATH="$PATH:/Users/HarryOB/development_tools/flutter/bin"
+export PATH="/usr/local/opt/openssl@1.1/bin:$PATH"

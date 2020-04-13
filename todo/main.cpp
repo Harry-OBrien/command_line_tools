@@ -13,6 +13,7 @@
 // TODO: Make certain tasks important (Will stand out when list is outputted)
 // TODO: Make certain tasks blocked by others -> Parent child esque
 // TODO: Have 'undo' tool which removes the last action done
+// TODO: Ability to have multiple to-do lists, and cmd to change between them
 
 char fileName[] = "/Users/HarryOB/Todo/TodoList.txt";
 char tempFileName[] = "/Users/HarryOB/Todo/temp.txt";
