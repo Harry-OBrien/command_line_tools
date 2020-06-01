@@ -29,7 +29,6 @@ alias gts="git status"
 alias gtb="git branch"
 alias gtcb="git checkout -b"
 alias gtc="git checkout"
-alias gtp="git pull"
 
 #----------------------------
 # Helper Functions
